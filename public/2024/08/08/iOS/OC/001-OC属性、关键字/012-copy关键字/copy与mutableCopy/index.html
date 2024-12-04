@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="LinXiang, iOS, Html, CSS, JS">
+    
+    <meta name="author" content="Lionsom">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://linxiang.netlify.app/2024/08/08/ios/oc/001-oc属性、关键字/012-copy关键字/copy与mutablecopy/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="参考文档 杂七杂八  copy和mutableCopy都是浅拷贝！！！  iOS中的copy，mutableCopy,深拷贝和浅拷贝  关于NSString的copy和mutableCopy  iOS中关键字copy与mutableCopy的详解，看我你就都懂了  copy和mutableCopy到底是浅拷贝还是深拷贝？  青玉伏案：Objective-C中的深拷贝和浅拷贝    Stackove">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS中copy与mutableCopy">
+<meta property="og:url" content="https://linxiang.netlify.app/2024/08/08/iOS/OC/001-OC%E5%B1%9E%E6%80%A7%E3%80%81%E5%85%B3%E9%94%AE%E5%AD%97/012-copy%E5%85%B3%E9%94%AE%E5%AD%97/copy%E4%B8%8EmutableCopy/index.html">
+<meta property="og:site_name" content="LinXiang&#39;s Blog">
+<meta property="og:description" content="参考文档 杂七杂八  copy和mutableCopy都是浅拷贝！！！  iOS中的copy，mutableCopy,深拷贝和浅拷贝  关于NSString的copy和mutableCopy  iOS中关键字copy与mutableCopy的详解，看我你就都懂了  copy和mutableCopy到底是浅拷贝还是深拷贝？  青玉伏案：Objective-C中的深拷贝和浅拷贝    Stackove">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://linxiang.netlify.app/2024/08/08/iOS/OC/001-OC%E5%B1%9E%E6%80%A7%E3%80%81%E5%85%B3%E9%94%AE%E5%AD%97/012-copy%E5%85%B3%E9%94%AE%E5%AD%97/copy%E4%B8%8EmutableCopy/005.webp">
+<meta property="og:image" content="https://linxiang.netlify.app/2024/08/08/iOS/OC/001-OC%E5%B1%9E%E6%80%A7%E3%80%81%E5%85%B3%E9%94%AE%E5%AD%97/012-copy%E5%85%B3%E9%94%AE%E5%AD%97/copy%E4%B8%8EmutableCopy/006.png">
+<meta property="og:image" content="https://linxiang.netlify.app/2024/08/08/iOS/OC/001-OC%E5%B1%9E%E6%80%A7%E3%80%81%E5%85%B3%E9%94%AE%E5%AD%97/012-copy%E5%85%B3%E9%94%AE%E5%AD%97/copy%E4%B8%8EmutableCopy/007.png">
+<meta property="og:image" content="https://linxiang.netlify.app/2024/08/08/iOS/OC/001-OC%E5%B1%9E%E6%80%A7%E3%80%81%E5%85%B3%E9%94%AE%E5%AD%97/012-copy%E5%85%B3%E9%94%AE%E5%AD%97/copy%E4%B8%8EmutableCopy/006.png">
+<meta property="article:published_time" content="2024-08-08T02:13:19.451Z">
+<meta property="article:modified_time" content="2024-08-08T02:41:42.385Z">
+<meta property="article:author" content="LinXiang">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="面试题">
+<meta property="article:tag" content="copy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://linxiang.netlify.app/2024/08/08/iOS/OC/001-OC%E5%B1%9E%E6%80%A7%E3%80%81%E5%85%B3%E9%94%AE%E5%AD%97/012-copy%E5%85%B3%E9%94%AE%E5%AD%97/copy%E4%B8%8EmutableCopy/005.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/myhead.jpg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/myhead.jpg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/myhead.jpg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            iOS中copy与mutableCopy -
+        
+        爱飞翔
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+        <link href="" rel="stylesheet">
+    
+    
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"linxiang.netlify.app","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":true,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":false,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"《春江花月夜》","subtitle":{"text":["春江潮水连海平，海上明月共潮生。","滟滟随波千万里，何处春江无月明。","江流宛转绕芳甸，月照花林皆似霰。","空里流霜不觉飞，汀上白沙看不见。","江天一色无纤尘，皎皎空中孤月轮。","江畔何人初见月？江月何年初照人？","人生代代无穷已，江月年年望相似。","不知江月待何人，但见长江送流水。","白云一片去悠悠，青枫浦上不胜愁。","谁家今夜扁舟子？何处相思明月楼？","可怜楼上月裴回，应照离人妆镜台。","玉户帘中卷不去，捣衣砧上拂还来。","此时相望不相闻，愿逐月华流照君。","鸿雁长飞光不度，鱼龙潜跃水成文。","昨夜闲潭梦落花，可怜春半不还家。","江水流春去欲尽，江潭落月复西斜。","斜月沉沉藏海雾，碣石潇湘无限路。","不知乘月几人归，落月摇情满江树。"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":false},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/lionsom","instagram":null,"zhihu":null,"twitter":null,"email":"lionsom.linx@gmail.com"},"qrs":{"weixin":"/images/wechat-code.png"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.4","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","A":"/about/A","B":"/about/B","Friends":"/about/friends"}},"Links":{"icon":"fa-regular fa-link","submenus":{"Github":"https://github.com/lionsom"}}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2024/7/12 00:00:01"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                爱飞翔
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/about/A">
+                                                    A
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/about/B">
+                                                    B
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/about/friends">
+                                                    FRIENDS
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    LINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/lionsom">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about/A">A</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about/B">B</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about/friends">FRIENDS</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Links"
+                        >
+                            <span>
+                                LINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/lionsom">GITHUB</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">73</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">56</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">iOS中copy与mutableCopy</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/myhead.jpg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Lionsom</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-08-08 10:13:19</span>
+        <span class="mobile">2024-08-08 10:13:19</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-08-08 10:41:42</span>
+            <span class="mobile">2024-08-08 10:41:42</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AFiOS/">移动端iOS</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/iOS/">iOS</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/copy/">copy</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><ul>
+<li><p>杂七杂八</p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/qq_18425655/article/details/51325921" >copy和mutableCopy都是浅拷贝！！！ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.jianshu.com/p/a99f3da35560" >iOS中的copy，mutableCopy,深拷贝和浅拷贝 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/small_smart_jin/article/details/50804607" >关于NSString的copy和mutableCopy <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.jianshu.com/p/700f58eb0b86" >iOS中关键字copy与mutableCopy的详解，看我你就都懂了 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/jslsblog/article/details/38563009" >copy和mutableCopy到底是浅拷贝还是深拷贝？ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/ludashi/p/3894151.html" >青玉伏案：Objective-C中的深拷贝和浅拷贝 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+</li>
+<li><p>Stackoverflow</p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://stackoverflow.com/questions/9912794/deep-copy-and-shallow-copy" >Deep Copy and Shallow Copy <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://stackoverflow.com/questions/184710/what-is-the-difference-between-a-deep-copy-and-a-shallow-copy" >What is the difference between a deep copy and a shallow copy? <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+</li>
+<li><p>Documents</p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Collections/Articles/Copying.html#//apple_ref/doc/uid/TP40010162-SW3" >apple documentation Copy  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Object_copying" >维基百科 - Object copying <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+</li>
+</ul>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li>一、copy、mutableCopy</li>
+<li>二、系统的非容器类对象：这里指的是NSString、NSNumber等对象。</li>
+<li>三、系统的容器类对象：指NSArray，NSSet，NSDictionary等。</li>
+<li>四、另一个角度来看<ul>
+<li>4.1、浅拷贝</li>
+<li>4.2、单层深copy</li>
+<li>4.3、双层深拷贝</li>
+<li>4.4、完全深拷贝</li>
+<li>4.5、自定义类对象之间的深浅拷贝问题</li>
+</ul>
+</li>
+<li>五、@property中的copy关键字</li>
+<li>六、copy和block</li>
+</ul>
+<h1 id="一、copy、mutableCopy"><a href="#一、copy、mutableCopy" class="headerlink" title="一、copy、mutableCopy"></a>一、copy、mutableCopy</h1><blockquote>
+<ul>
+<li><h5 id="copy：不可变拷贝-遵循NSCopying协议，需要对应实现copyWithZone方法；"><a href="#copy：不可变拷贝-遵循NSCopying协议，需要对应实现copyWithZone方法；" class="headerlink" title="copy：不可变拷贝,遵循NSCopying协议，需要对应实现copyWithZone方法；"></a>copy：不可变拷贝,遵循NSCopying协议，需要对应实现copyWithZone方法；</h5></li>
+<li><h5 id="mutableCopy：可变拷贝，遵循NSMutableCopying协议，需要对应实现mutableCopyWithZone-方法；"><a href="#mutableCopy：可变拷贝，遵循NSMutableCopying协议，需要对应实现mutableCopyWithZone-方法；" class="headerlink" title="mutableCopy：可变拷贝，遵循NSMutableCopying协议，需要对应实现mutableCopyWithZone:方法；"></a>mutableCopy：可变拷贝，遵循NSMutableCopying协议，需要对应实现mutableCopyWithZone:方法；</h5></li>
+</ul>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2024/08/08/iOS/OC/001-OC%E5%B1%9E%E6%80%A7%E3%80%81%E5%85%B3%E9%94%AE%E5%AD%97/012-copy%E5%85%B3%E9%94%AE%E5%AD%97/copy%E4%B8%8EmutableCopy/005.webp"
+                     
+                ></p>
+<h1 id="二、系统的非容器类对象：这里指的是NSString、NSNumber等对象。"><a href="#二、系统的非容器类对象：这里指的是NSString、NSNumber等对象。" class="headerlink" title="二、系统的非容器类对象：这里指的是NSString、NSNumber等对象。"></a>二、系统的非容器类对象：这里指的是NSString、NSNumber等对象。</h1><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"> // const是常量字符串,存在常量区 </span><br><span class="line"> // constStr指针存在栈区, 指针指向常量区 </span><br><span class="line">NSString * constStr = @&quot;const&quot;;</span><br><span class="line">NSString * constStrCopy = [constStr copy];</span><br><span class="line">NSMutableString * constStrMutableCopy = [constStr mutableCopy];</span><br><span class="line">NSLog(@&quot;constStr = %p = %@&quot;,constStr,constStr);</span><br><span class="line">NSLog(@&quot;constStrCopy = %p = %@&quot;,constStrCopy,constStrCopy);</span><br><span class="line">NSLog(@&quot;constStrMutableCopy = %p = %@&quot;,constStrMutableCopy,constStrMutableCopy);</span><br><span class="line"></span><br><span class="line">// originStr在栈中,指向堆区的地址 </span><br><span class="line">NSString * originStr = [NSString stringWithFormat:@&quot;origin&quot;];</span><br><span class="line">NSString * originStrCopy = [originStr copy];</span><br><span class="line">NSMutableString * originStrMutableCopy = [originStr mutableCopy];</span><br><span class="line">NSLog(@&quot;originStr = %p = %@&quot;,originStr,originStr);</span><br><span class="line">NSLog(@&quot;originStrCopy = %p = %@&quot;,originStrCopy,originStrCopy);</span><br><span class="line">NSLog(@&quot;originStrMutableCopy = %p = %@&quot;,originStrMutableCopy,originStrMutableCopy);</span><br><span class="line">    </span><br><span class="line">NSMutableString *mutableOriginStr = [NSMutableString stringWithFormat:@&quot;mutableOrigin&quot;];</span><br><span class="line">NSMutableString *mutableOriginStrCopy = [mutableOriginStr copy];</span><br><span class="line">NSMutableString *mutableOriginStrMutableCopy = [mutableOriginStr mutableCopy];</span><br><span class="line">NSLog(@&quot;mutableOriginStr = %p = %@&quot;,mutableOriginStr,mutableOriginStr);</span><br><span class="line">NSLog(@&quot;mutableOriginStrCopy = %p = %@&quot;,mutableOriginStrCopy,mutableOriginStrCopy);</span><br><span class="line">NSLog(@&quot;mutableOriginStrMutableCopy = %p = %@&quot;,mutableOriginStrMutableCopy,mutableOriginStrMutableCopy);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 返回值测试对象是否为mutable</span><br><span class="line">[constStrMutableCopy appendString:@&quot;const&quot;];</span><br><span class="line">[originStrMutableCopy appendString:@&quot;origin&quot;];</span><br><span class="line">#pragma warnning - ERROR</span><br><span class="line">[mutableOriginStrCopy appendString:@&quot;mm&quot;];   // ERROR</span><br></pre></td></tr></table></figure></div>
+<p>输出</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">constStr = 0x109a32558</span><br><span class="line">constStrCopy = 0x109a32558</span><br><span class="line">constStrMutableCopy = 0x60000307ad00</span><br><span class="line"></span><br><span class="line">originStr = 0xc117d077374719f4</span><br><span class="line">originStrCopy = 0xc117d077374719f4</span><br><span class="line">originStrMutableCopy = 0x60000307ac40</span><br><span class="line"></span><br><span class="line">mutableOriginStr = 0x60000307ac70</span><br><span class="line">mutableOriginStrCopy = 0x600003e7d960</span><br><span class="line">mutableOriginStrMutableCopy = 0x60000307adc0</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2024/08/08/iOS/OC/001-OC%E5%B1%9E%E6%80%A7%E3%80%81%E5%85%B3%E9%94%AE%E5%AD%97/012-copy%E5%85%B3%E9%94%AE%E5%AD%97/copy%E4%B8%8EmutableCopy/006.png"
+                      alt="总结图"
+                ></p>
+<blockquote>
+<h6 id="总结：对于系统的非容器类对象，我们可以认为，如果对不可变对象复制，copy是指针复制（浅拷贝）和mutableCopy就是对象复制（深拷贝）。如果是对可变对象复制，都是深拷贝，但是copy返回的对象是不可变的。"><a href="#总结：对于系统的非容器类对象，我们可以认为，如果对不可变对象复制，copy是指针复制（浅拷贝）和mutableCopy就是对象复制（深拷贝）。如果是对可变对象复制，都是深拷贝，但是copy返回的对象是不可变的。" class="headerlink" title="总结：对于系统的非容器类对象，我们可以认为，如果对不可变对象复制，copy是指针复制（浅拷贝）和mutableCopy就是对象复制（深拷贝）。如果是对可变对象复制，都是深拷贝，但是copy返回的对象是不可变的。"></a>总结：对于系统的非容器类对象，我们可以认为，如果对不可变对象复制，copy是指针复制（浅拷贝）和mutableCopy就是对象复制（深拷贝）。如果是对可变对象复制，都是深拷贝，但是copy返回的对象是不可变的。</h6><h6 id="copy返回的对象是不可变的，mutableCopy是可变的。"><a href="#copy返回的对象是不可变的，mutableCopy是可变的。" class="headerlink" title="copy返回的对象是不可变的，mutableCopy是可变的。"></a>copy返回的对象是不可变的，mutableCopy是可变的。</h6></blockquote>
+<p><strong>NSString内存分配结论：</strong><br><a class="link"   target="_blank" rel="noopener" href="https://www.aliyun.com/jiaocheng/359361.html" >iOS的关于堆区和栈区 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@&quot;&quot; 和 initWithString：方法生成的字符串分配在常量区，系统自动管理内存；</span><br><span class="line"></span><br><span class="line">initWithFormat：和 stringWithFormat: 方法生成的字符串分配在堆区，autorelease；</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="三、系统的容器类对象：指NSArray，NSSet，NSDictionary等。"><a href="#三、系统的容器类对象：指NSArray，NSSet，NSDictionary等。" class="headerlink" title="三、系统的容器类对象：指NSArray，NSSet，NSDictionary等。"></a>三、系统的容器类对象：指NSArray，NSSet，NSDictionary等。</h1><p><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/qq_18425655/article/details/51325921" >copy和mutableCopy都是浅拷贝！！！ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://www.jianshu.com/p/ad1fb29b6070" >iOS深浅拷贝（纠错） <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2024/08/08/iOS/OC/001-OC%E5%B1%9E%E6%80%A7%E3%80%81%E5%85%B3%E9%94%AE%E5%AD%97/012-copy%E5%85%B3%E9%94%AE%E5%AD%97/copy%E4%B8%8EmutableCopy/007.png"
+                      alt="浅拷贝与深拷贝"
+                ></p>
+<blockquote>
+<h6 id="观点一：-所有系统容器类的copy或mutableCopy方法，都是浅拷贝！！！"><a href="#观点一：-所有系统容器类的copy或mutableCopy方法，都是浅拷贝！！！" class="headerlink" title="观点一： 所有系统容器类的copy或mutableCopy方法，都是浅拷贝！！！"></a>观点一： 所有系统容器类的copy或mutableCopy方法，都是浅拷贝！！！</h6></blockquote>
+<p><strong>验证一：NSArray进行copy与mutableCopy，并改变NSArray内元素值，查看拷贝对象内部值的变化。</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">NSArray * arr = [NSArray arrayWithObjects:</span><br><span class="line">                 [NSMutableString stringWithString:@&quot;one&quot;],</span><br><span class="line">                 [NSMutableString stringWithString:@&quot;two&quot;],</span><br><span class="line">                 [NSMutableString stringWithString:@&quot;three&quot;],</span><br><span class="line">                 [NSMutableString stringWithString:@&quot;four&quot;],nil];</span><br><span class="line">NSArray * arrcopy = [arr copy];</span><br><span class="line">NSMutableArray * arrmutablecopy = [arr mutableCopy];</span><br><span class="line">NSLog(@&quot;arr = %p = %p&quot;,arr,arr[0]);</span><br><span class="line">NSLog(@&quot;arrcopy = %p = %p&quot;,arrcopy,arrcopy[0]);</span><br><span class="line">NSLog(@&quot;arrmutablecopy = %p = %p&quot;,arrmutablecopy,arrmutablecopy[0]);</span><br><span class="line"></span><br><span class="line">NSMutableString * mStr;</span><br><span class="line">mStr = arr[0];</span><br><span class="line">[mStr appendString:@&quot;--array&quot;];</span><br><span class="line"></span><br><span class="line">NSLog(@&quot;改变内部元素后 arr：%@ = %p&quot;,arr,arr[0]);</span><br><span class="line">NSLog(@&quot;改变内部元素后 arrcopy：%@ = %p&quot;,arrcopy,arrcopy[0]);</span><br><span class="line">NSLog(@&quot;改变内部元素后 arrmutablecopy：%@ = %p&quot;,arrmutablecopy,arrmutablecopy[0]);</span><br></pre></td></tr></table></figure></div>
+
+<p>输出</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">arr = 0x604000446390 = 0x604000445d90</span><br><span class="line">arrcopy = 0x604000446390 = 0x604000445d90</span><br><span class="line">arrmutablecopy = 0x604000445520 = 0x604000445d90</span><br><span class="line">改变内部元素后 arr：(</span><br><span class="line">    &quot;one--array&quot;,</span><br><span class="line">    two,</span><br><span class="line">    three,</span><br><span class="line">    four</span><br><span class="line">) = 0x604000445d90</span><br><span class="line">改变内部元素后 arrcopy：(</span><br><span class="line">    &quot;one--array&quot;,</span><br><span class="line">    two,</span><br><span class="line">    three,</span><br><span class="line">    four</span><br><span class="line">) = 0x604000445d90</span><br><span class="line">改变内部元素后 arrmutablecopy：(</span><br><span class="line">    &quot;one--array&quot;,</span><br><span class="line">    two,</span><br><span class="line">    three,</span><br><span class="line">    four</span><br><span class="line">) = 0x604000445d90</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>验证二：NSMutableArray进行copy与mutableCopy，并改变NSMutableArray内元素值，查看拷贝对象内部值的变化。</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">NSMutableArray *mutableArr = [NSMutableArray arrayWithObjects:</span><br><span class="line">                              [NSMutableString stringWithString:@&quot;abc&quot;],</span><br><span class="line">                              [NSMutableString stringWithString:@&quot;def&quot;],</span><br><span class="line">                              [NSMutableString stringWithString:@&quot;ghi&quot;],</span><br><span class="line">                              [NSMutableString stringWithString:@&quot;jkl&quot;], nil];</span><br><span class="line">NSArray * mutableArrcopy = [mutableArr copy];</span><br><span class="line">NSMutableArray * mutableArrmutablecopy = [mutableArr mutableCopy];</span><br><span class="line">NSLog(@&quot;mutableArr = %p = %p&quot;,mutableArr,mutableArr[0]);</span><br><span class="line">NSLog(@&quot;mutableArrcopy = %p = %p&quot;,mutableArrcopy,mutableArrcopy[0]);</span><br><span class="line">NSLog(@&quot;mutableArrmutablecopy = %p = %p&quot;,mutableArrmutablecopy,mutableArrmutablecopy[0]);</span><br><span class="line"></span><br><span class="line">NSMutableString * mStr1;</span><br><span class="line">mStr1 = mutableArr[0];</span><br><span class="line">[mStr1 appendString:@&quot;--mutablearray&quot;];</span><br><span class="line"></span><br><span class="line">[mutableArrmutablecopy addObject:@&quot;FFF&quot;];</span><br><span class="line"></span><br><span class="line">NSLog(@&quot;改变内部元素后 mutableArr：%@ = %p&quot;,mutableArr,mutableArr[0]);</span><br><span class="line">NSLog(@&quot;改变内部元素后 mutableArrcopy：%@ = %p&quot;,mutableArrcopy,mutableArrcopy[0]);</span><br><span class="line">NSLog(@&quot;改变内部元素后 mutableArrmutablecopy：%@ = %p&quot;,mutableArrmutablecopy,mutableArrmutablecopy[0]);</span><br></pre></td></tr></table></figure></div>
+
+<p>输出</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">mutableArr = 0x604000452b10 = 0x604000452a80</span><br><span class="line">mutableArrcopy = 0x604000452b70 = 0x604000452a80</span><br><span class="line">mutableArrmutablecopy = 0x60400025fe90 = 0x604000452a80</span><br><span class="line">改变内部元素后 mutableArr：(</span><br><span class="line">    &quot;abc--mutablearray&quot;,</span><br><span class="line">    def,</span><br><span class="line">    ghi,</span><br><span class="line">    jkl</span><br><span class="line">) = 0x604000452a80</span><br><span class="line">改变内部元素后 mutableArrcopy：(</span><br><span class="line">    &quot;abc--mutablearray&quot;,</span><br><span class="line">    def,</span><br><span class="line">    ghi,</span><br><span class="line">    jkl</span><br><span class="line">) = 0x604000452a80</span><br><span class="line">改变内部元素后 mutableArrmutablecopy：(</span><br><span class="line">    &quot;abc--mutablearray&quot;,</span><br><span class="line">    def,</span><br><span class="line">    ghi,</span><br><span class="line">    jkl,</span><br><span class="line">    FFF</span><br><span class="line">) = 0x604000452a80</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2024/08/08/iOS/OC/001-OC%E5%B1%9E%E6%80%A7%E3%80%81%E5%85%B3%E9%94%AE%E5%AD%97/012-copy%E5%85%B3%E9%94%AE%E5%AD%97/copy%E4%B8%8EmutableCopy/006.png"
+                      alt="总结图"
+                ></p>
+<blockquote>
+<h6 id="总结：copy操作返回的必然是一个不可变对象，无论源对象是可变对象还是不可变对象。如果源对象是一个不可变对象，那么它们（源对象和新生成的对象）指向同一个对象，如果源对象是可变对象，它们指向不同对象。"><a href="#总结：copy操作返回的必然是一个不可变对象，无论源对象是可变对象还是不可变对象。如果源对象是一个不可变对象，那么它们（源对象和新生成的对象）指向同一个对象，如果源对象是可变对象，它们指向不同对象。" class="headerlink" title="总结：copy操作返回的必然是一个不可变对象，无论源对象是可变对象还是不可变对象。如果源对象是一个不可变对象，那么它们（源对象和新生成的对象）指向同一个对象，如果源对象是可变对象，它们指向不同对象。"></a>总结：copy操作返回的必然是一个不可变对象，无论源对象是可变对象还是不可变对象。如果源对象是一个不可变对象，那么它们（源对象和新生成的对象）指向同一个对象，如果源对象是可变对象，它们指向不同对象。</h6><h6 id="mutableCopy返回的必然是一个可变对象，无论源对象是可变对象还是不可变对象，它们（源对象和新生成的对象）仍指向不同地址，是两个对象。"><a href="#mutableCopy返回的必然是一个可变对象，无论源对象是可变对象还是不可变对象，它们（源对象和新生成的对象）仍指向不同地址，是两个对象。" class="headerlink" title="mutableCopy返回的必然是一个可变对象，无论源对象是可变对象还是不可变对象，它们（源对象和新生成的对象）仍指向不同地址，是两个对象。"></a>mutableCopy返回的必然是一个可变对象，无论源对象是可变对象还是不可变对象，它们（源对象和新生成的对象）仍指向不同地址，是两个对象。</h6></blockquote>
+<blockquote>
+<h6 id="特别注意的是：对于集合类的可变对象来说，深拷贝并非严格意义上的深复制，只能算是单层深复制，即虽然新开辟了内存地址，但是存放在内存上的值（也就是数组里的元素仍然之原数组元素值，并没有另外复制一份），这就叫做单层深复制。"><a href="#特别注意的是：对于集合类的可变对象来说，深拷贝并非严格意义上的深复制，只能算是单层深复制，即虽然新开辟了内存地址，但是存放在内存上的值（也就是数组里的元素仍然之原数组元素值，并没有另外复制一份），这就叫做单层深复制。" class="headerlink" title="特别注意的是：对于集合类的可变对象来说，深拷贝并非严格意义上的深复制，只能算是单层深复制，即虽然新开辟了内存地址，但是存放在内存上的值（也就是数组里的元素仍然之原数组元素值，并没有另外复制一份），这就叫做单层深复制。"></a>特别注意的是：对于集合类的可变对象来说，深拷贝并非严格意义上的深复制，只能算是单层深复制，即虽然新开辟了内存地址，但是存放在内存上的值（也就是数组里的元素仍然之原数组元素值，并没有另外复制一份），这就叫做单层深复制。</h6></blockquote>
+<h1 id="四、另一个角度来看"><a href="#四、另一个角度来看" class="headerlink" title="四、另一个角度来看"></a>四、另一个角度来看</h1><h2 id="4-1、浅拷贝"><a href="#4-1、浅拷贝" class="headerlink" title="4.1、浅拷贝"></a>4.1、浅拷贝</h2><p><a class="link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/beckwang0912/p/7212075.html" >iOS 图文并茂的带你了解深拷贝与浅拷贝 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://www.jianshu.com/p/ebbac2fec4c6" >Objective-C copy，看我就够了 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSArray *arr = [NSArray arrayWithObjects:@&quot;1&quot;, nil];</span><br><span class="line">NSArray *copyArr = [arr copy];</span><br><span class="line">NSLog(@&quot;%p&quot;, arr);</span><br><span class="line">NSLog(@&quot;%p&quot;, copyArr);</span><br></pre></td></tr></table></figure></div>
+<p>输出：浅拷贝</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2018-10-24 10:00:17.256591+0800 TodayNews[2229:70407] 0x60000043d3c0</span><br><span class="line">2018-10-24 10:00:17.256705+0800 TodayNews[2229:70407] 0x60000043d3c0</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="4-2、单层深copy"><a href="#4-2、单层深copy" class="headerlink" title="4.2、单层深copy"></a>4.2、单层深copy</h2><p><strong>这里的单层指的是完成了NSArray对象的深copy，而未对其容器内对象进行处理。</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">NSArray *arr = [NSArray arrayWithObjects:@&quot;1&quot;, nil];</span><br><span class="line">NSArray *copyArr = [arr mutableCopy];</span><br><span class="line">    </span><br><span class="line">NSLog(@&quot;%p&quot;, arr);</span><br><span class="line">NSLog(@&quot;%p&quot;, copyArr);</span><br><span class="line">    </span><br><span class="line">// 打印arr、copyArr内部元素进行对比</span><br><span class="line">NSLog(@&quot;%p&quot;, arr[0]);</span><br><span class="line">NSLog(@&quot;%p&quot;, copyArr[0]);</span><br></pre></td></tr></table></figure></div>
+<p>输出：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2018-10-24 10:06:10.985032+0800 TodayNews[2330:73697] 0x60000043a200</span><br><span class="line">2018-10-24 10:06:10.985224+0800 TodayNews[2330:73697] 0x600000642a60</span><br><span class="line">2018-10-24 10:06:10.985347+0800 TodayNews[2330:73697] 0x102bf00d8</span><br><span class="line">2018-10-24 10:06:10.985438+0800 TodayNews[2330:73697] 0x102bf00d8</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="4-3、双层深拷贝"><a href="#4-3、双层深拷贝" class="headerlink" title="4.3、双层深拷贝"></a>4.3、双层深拷贝</h2><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// 随意创建一个NSMutableString对象</span><br><span class="line">NSMutableString *mutableString = [NSMutableString stringWithString:@&quot;1&quot;];</span><br><span class="line">// 随意创建一个包涵NSMutableString的NSMutableArray对象</span><br><span class="line">NSMutableString *mutalbeString1 = [NSMutableString stringWithString:@&quot;1&quot;];</span><br><span class="line">NSMutableArray *mutableArr = [NSMutableArray arrayWithObjects:mutalbeString1, nil];</span><br><span class="line">// 将mutableString和mutableArr放入一个新的NSArray中</span><br><span class="line">NSArray *testArr = [NSArray arrayWithObjects:mutableString, mutableArr, nil];</span><br><span class="line">// 通过官方文档提供的方式创建copy</span><br><span class="line">NSArray *testArrCopy = [[NSArray alloc] initWithArray:testArr copyItems:YES];</span><br><span class="line"></span><br><span class="line">// testArr和testArrCopy指针对比</span><br><span class="line">NSLog(@&quot;%p&quot;, testArr);</span><br><span class="line">NSLog(@&quot;%p&quot;, testArrCopy);</span><br><span class="line"></span><br><span class="line">// testArr和testArrCopy中元素指针对比</span><br><span class="line">// mutableString对比</span><br><span class="line">NSLog(@&quot;%p&quot;, testArr[0]);</span><br><span class="line">NSLog(@&quot;%p&quot;, testArrCopy[0]);</span><br><span class="line">// mutableArr对比</span><br><span class="line">NSLog(@&quot;%p&quot;, testArr[1]);</span><br><span class="line">NSLog(@&quot;%p&quot;, testArrCopy[1]);</span><br><span class="line"></span><br><span class="line">// mutableArr中的元素对比，即mutalbeString1对比</span><br><span class="line">NSLog(@&quot;%p&quot;, testArr[1][0]);</span><br><span class="line">NSLog(@&quot;%p&quot;, testArrCopy[1][0]);</span><br></pre></td></tr></table></figure></div>
+<p>输出</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">2018-10-24 10:10:20.994041+0800 TodayNews[2442:76854] 0x600000426500</span><br><span class="line">2018-10-24 10:10:20.994165+0800 TodayNews[2442:76854] 0x6000004264c0</span><br><span class="line">2018-10-24 10:10:20.994280+0800 TodayNews[2442:76854] 0x600000652870</span><br><span class="line">2018-10-24 10:10:20.994421+0800 TodayNews[2442:76854] 0xa000000000000311</span><br><span class="line">2018-10-24 10:10:20.994512+0800 TodayNews[2442:76854] 0x600000652960</span><br><span class="line">2018-10-24 10:10:20.994599+0800 TodayNews[2442:76854] 0x600000005ef0</span><br><span class="line">2018-10-24 10:10:20.994701+0800 TodayNews[2442:76854] 0x6000006528a0</span><br><span class="line">2018-10-24 10:10:20.994993+0800 TodayNews[2442:76854] 0x6000006528a0</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="4-4、完全深拷贝"><a href="#4-4、完全深拷贝" class="headerlink" title="4.4、完全深拷贝"></a>4.4、完全深拷贝</h2><p>方式一：<strong>如果想完美的解决NSArray嵌套NSArray这种情形，可以使用归档、解档的方式。</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">// 随意创建一个NSMutableString对象</span><br><span class="line">NSMutableString *mutableString = [NSMutableString stringWithString:@&quot;1&quot;];</span><br><span class="line">// 随意创建一个包涵NSMutableString的NSMutableArray对象</span><br><span class="line">NSMutableString *mutalbeString1 = [NSMutableString stringWithString:@&quot;1&quot;];</span><br><span class="line">NSMutableArray *mutableArr = [NSMutableArray arrayWithObjects:mutalbeString1, nil];</span><br><span class="line">// 将mutableString和mutableArr放入一个新的NSArray中</span><br><span class="line">NSArray *testArr = [NSArray arrayWithObjects:mutableString, mutableArr, nil];</span><br><span class="line">// 通过归档、解档方式创建copy</span><br><span class="line">NSArray *testArrCopy = [NSKeyedUnarchiver unarchiveObjectWithData:</span><br><span class="line">                            [NSKeyedArchiver archivedDataWithRootObject:testArr]];;</span><br><span class="line">    </span><br><span class="line">// testArr和testArrCopy指针对比</span><br><span class="line">NSLog(@&quot;%p&quot;, testArr);</span><br><span class="line">NSLog(@&quot;%p&quot;, testArrCopy);</span><br><span class="line">    </span><br><span class="line">// testArr和testArrCopy中元素指针对比</span><br><span class="line">// mutableString对比</span><br><span class="line">NSLog(@&quot;%p&quot;, testArr[0]);</span><br><span class="line">NSLog(@&quot;%p&quot;, testArrCopy[0]);</span><br><span class="line">// mutableArr对比</span><br><span class="line">NSLog(@&quot;%p&quot;, testArr[1]);</span><br><span class="line">NSLog(@&quot;%p&quot;, testArrCopy[1]);</span><br><span class="line">    </span><br><span class="line">// mutableArr中的元素对比，即mutalbeString1对比</span><br><span class="line">NSLog(@&quot;%p&quot;, testArr[1][0]);</span><br><span class="line">NSLog(@&quot;%p&quot;, testArrCopy[1][0]);</span><br></pre></td></tr></table></figure></div>
+<p>输出</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">2018-10-24 10:15:11.448311+0800 TodayNews[2549:80583] 0x600000430640</span><br><span class="line">2018-10-24 10:15:11.448435+0800 TodayNews[2549:80583] 0x6000004309e0</span><br><span class="line">2018-10-24 10:15:11.448528+0800 TodayNews[2549:80583] 0x60000045e2a0</span><br><span class="line">2018-10-24 10:15:11.448684+0800 TodayNews[2549:80583] 0x60000045e3c0</span><br><span class="line">2018-10-24 10:15:11.448773+0800 TodayNews[2549:80583] 0x60000045d0d0</span><br><span class="line">2018-10-24 10:15:11.448925+0800 TodayNews[2549:80583] 0x60000045e450</span><br><span class="line">2018-10-24 10:15:11.449012+0800 TodayNews[2549:80583] 0x60000045e1b0</span><br><span class="line">2018-10-24 10:15:11.449161+0800 TodayNews[2549:80583] 0x60000045e7e0</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>方式二：<code>- (instancetype)initWithArray:(NSArray&lt;ObjectType&gt; *)array copyItems:(BOOL)flag</code>;</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">NSMutableArray *marry1 = [[NSMutableArray alloc] init];</span><br><span class="line">    </span><br><span class="line">NSMutableString *mstr1 = [[NSMutableString alloc]initWithString:@&quot;value1&quot;];</span><br><span class="line">NSMutableString *mstr2 = [[NSMutableString alloc]initWithString:@&quot;value2&quot;];</span><br><span class="line">    </span><br><span class="line">[marry1 addObject:mstr1];</span><br><span class="line">[marry1 addObject:mstr2];</span><br><span class="line">    </span><br><span class="line">NSArray *marray2 = [[NSArray alloc] initWithArray:marry1 copyItems:YES];</span><br><span class="line">    </span><br><span class="line">NSLog(@&quot;marry1:%p - %@ \r\n&quot;,marry1,marry1);</span><br><span class="line">NSLog(@&quot;marry2:%p - %@ \r\n&quot;,marray2,marray2);</span><br><span class="line">NSLog(@&quot;数组元素地址:value1:%p - value2:%p \r\n&quot;,marry1[0],marry1[1]);</span><br><span class="line">NSLog(@&quot;数组元素地址:value1:%p - value2:%p \r\n&quot;,marray2[0],marray2[1]);</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="4-5、自定义类对象之间的深浅拷贝问题"><a href="#4-5、自定义类对象之间的深浅拷贝问题" class="headerlink" title="4.5、自定义类对象之间的深浅拷贝问题"></a>4.5、自定义类对象之间的深浅拷贝问题</h2><p>在Objective-C中并不是所有的类都支持拷贝；只有遵循NSCopying协议的类，才支持copy拷贝，只有遵循NSMutableCopying协议的类，才支持mutableCopy拷贝。如果没有遵循拷贝协议，拷贝时会出错。</p>
+<p>如果我们想再我们自定义的类中支持copy和mutableCopy那么我们就需要使我们定义的类遵循NSCopying和NSMutableCopying协议，代码如下：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@interface Study_CustomObject_copy_mutableCopy : NSObject &lt;NSCopying, NSMutableCopying&gt;  // 协议</span><br><span class="line">@property (copy,nonatomic) NSString *name;</span><br><span class="line">@property (copy,nonatomic) NSString *age;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation Study_CustomObject_copy_mutableCopy</span><br><span class="line">- (id)copyWithZone:(NSZone *)zone</span><br><span class="line">&#123;</span><br><span class="line">    Study_CustomObject_copy_mutableCopy *customobject = [[Study_CustomObject_copy_mutableCopy allocWithZone:zone] init];</span><br><span class="line">    customobject.age = self.age;</span><br><span class="line">    customobject.name = self.name;</span><br><span class="line">    return customobject;</span><br><span class="line">&#125;</span><br><span class="line">- (id)mutableCopyWithZone:(NSZone *)zone &#123;</span><br><span class="line">    Study_CustomObject_copy_mutableCopy *customobject = [[Study_CustomObject_copy_mutableCopy allocWithZone:zone] init];</span><br><span class="line">    customobject.age = self.age;</span><br><span class="line">    customobject.name = self.name;</span><br><span class="line">    return customobject;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure></div>
+
+
+<p><strong>调用 、 输出</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// 调用</span><br><span class="line">&#123;</span><br><span class="line">    Study_CustomObject_copy_mutableCopy *object = [[Study_CustomObject_copy_mutableCopy alloc]init];</span><br><span class="line">    object.age = @&quot;99&quot;;</span><br><span class="line">    object.name = @&quot;lionsom&quot;;</span><br><span class="line">    </span><br><span class="line">    Study_CustomObject_copy_mutableCopy *objectCopy = [object copy];</span><br><span class="line">    Study_CustomObject_copy_mutableCopy *objectMutableCopy = [object mutableCopy];</span><br><span class="line">    </span><br><span class="line">    NSLog(@&quot;object === %p , name === %p , age === %p&quot;,object, object.name, object.age);</span><br><span class="line">    NSLog(@&quot;objectCopy === %p , name === %p , age === %p&quot;,objectCopy, objectCopy.name, objectCopy.age);</span><br><span class="line">    NSLog(@&quot;objectMutableCopy === %p , name === %p , age === %p&quot;,objectMutableCopy, objectMutableCopy.name, objectMutableCopy.age);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 输出</span><br><span class="line">object === 0x60400023d7a0 , name === 0x100744ed8 , age === 0x100744eb8</span><br><span class="line">objectCopy === 0x60400023bd80 , name === 0x100744ed8 , age === 0x100744eb8</span><br><span class="line">objectMutableCopy === 0x60400023d180 , name === 0x100744ed8 , age === 0x100744eb8</span><br></pre></td></tr></table></figure></div>
+
+
+<h1 id="五、-property中的copy关键字"><a href="#五、-property中的copy关键字" class="headerlink" title="五、@property中的copy关键字"></a>五、@property中的copy关键字</h1><p><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/winzlee/article/details/51752354" >iOS内存管理（6）–NSArray与NSMutableArray用copy修饰还是strong <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/G_eorge/article/details/78219957?locationNum=9&fps=1" >OC的深拷贝与浅拷贝–NSArray与NSMutableArray应该使用copy还是strong？ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<ul>
+<li><h5 id="NSString"><a href="#NSString" class="headerlink" title="NSString"></a>NSString</h5><ul>
+<li>strong 关键词：两个string指向相同的内存地址，修改一个，另一个也会改变；</li>
+<li>(<strong>推荐</strong>)copy 关键词：两个string指向不同的内存地址，互不影响；</li>
+</ul>
+</li>
+<li><h5 id="NSMutableString"><a href="#NSMutableString" class="headerlink" title="NSMutableString"></a>NSMutableString</h5><ul>
+<li>(<strong>推荐</strong>)strong 关键词：两个string指向相同的内存地址，修改一个，另一个也会改变；</li>
+<li>(<strong>崩溃</strong>)copy 关键词：copy之后，就把变量string变成了不可变的NSString类型，对不可变的NSString使用了NSMutableString的方法appendString。</li>
+</ul>
+</li>
+<li><h5 id="NSArray"><a href="#NSArray" class="headerlink" title="NSArray"></a>NSArray</h5><ul>
+<li>strong 关键词：两个string指向相同的内存地址，修改一个，另一个也会改变；</li>
+<li>(<strong>推荐</strong>)copy 关键词：此时内存地址都是不同的，修改一个，互不影响；</li>
+</ul>
+</li>
+<li><h5 id="NSMutableArray"><a href="#NSMutableArray" class="headerlink" title="NSMutableArray"></a>NSMutableArray</h5><ul>
+<li>(<strong>推荐</strong>)strong 关键词：两个string指向相同的内存地址，修改一个，另一个也会改变；</li>
+<li>(<strong>崩溃</strong>)copy 关键词：copy之后，就把变量array变成了不可变的NSArray类型，对不可变的NSArray使用了NSMutableArray的方法addObject。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>当修饰可变类型的属性时，如NSMutableArray、NSMutableDictionary、NSMutableString，用strong。</p>
+<p>当修饰不可变类型的属性时，如NSArray、NSDictionary、NSString，用copy。</p>
+</blockquote>
+<h1 id="六、copy和block"><a href="#六、copy和block" class="headerlink" title="六、copy和block"></a>六、copy和block</h1><p><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/leonliu070602/article/details/52981884" >block使用copy原理 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>简单来说，block就像一个函数指针，指向我们要使用的函数。</p>
+<p>就和函数调用一样的，不管你在哪里写了这个block，只要你把它放在了内存中（通过调用存在这个block的方法或者是函数），不管放在栈中还是在堆中，还是在静态区。只要他没有被销毁，你都可以通过你声明的block调用他。</p>
+<p>说到在类中声明一个block为什么要用copy修饰的话，那就要先说block的三种类型。</p>
+<p>1._NSConcreteGlobalBlock,全局的静态block，不会访问外部的变量。就是说如果你的block没有调用其他的外部变量，那你的block类型就是这种。例如：你仅仅在你的block里面写一个NSLog(“hello world”);</p>
+<p>2._NSConcreteStackBlock 保存在栈中的 block，当函数返回时会被销毁。这个block就是你声明的时候不用c opy修饰，并且你的block访问了外部变量。</p>
+<p>3._NSConcreteMallocBlock 保存在堆中的 block，当引用计数为 0 时会被销毁。好了，这个就是今天的主角 ，用copy修饰的block。</p>
+<p>我们知道，函数的声明周期是随着函数调用的结束就终止了。我们的block是写在函数中的。</p>
+<p>如果是全局静态block的话，他直到程序结束的时候，才会被被释放。但是我们实际操作中基本上不会使用到不访问外部变量的block。【但是在测试三种区别的时候，因为没有很好的理解这种block，（用没有copy修饰和没有访问外部变量的block）试了好多次，以为是放在静态区里面的block没有随函数结束被释放。这是个小坑】</p>
+<p>如果是保存在栈中的block，他会随着函数调用结束被销毁。从而导致我们在执行一个包含block的函数之后，就无法再访问这个block。因为（函数结束，函数栈就销毁了，存在函数里面的block也就没有了），我们再使用block时，就会产生空指针异常。</p>
+<p>如果是堆中的block，也就是copy修饰的block。他的生命 周期就是随着对象的销毁而结束的。只要对象不销毁，我们就可以调用的到在堆中的block。</p>
+<p>这就是为什么我们要用copy来修饰block。因为不用copy修饰的访问外部变量的block，只在他所在的函数被调用的那一瞬间可以使用。之后就消失了。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> iOS中copy与mutableCopy</li>
+        <li><strong>Author:</strong> Lionsom</li>
+        <li><strong>Created at
+                :</strong> 2024-08-08 10:13:19</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-08-08 10:41:42
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://linxiang.netlify.app/2024/08/08/iOS/OC/001-OC属性、关键字/012-copy关键字/copy与mutableCopy/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/iOS/">#iOS</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">#面试题</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/copy/">#copy</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2024/08/08/iOS/OC/003-OC%E6%96%B9%E6%B3%95/029-%E5%AE%8F(define)%E4%B8%8E%E5%B8%B8%E9%87%8F(const)/README/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">iOS宏(define)与常量(const)</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2024/08/08/iOS/OC/003-OC%E6%96%B9%E6%B3%95/027-iOS%E4%B8%ADfloat%E5%9B%9B%E8%88%8D%E4%BA%94%E5%85%A5+%E6%9C%AB%E5%B0%BE%E6%B8%85%E9%9B%B6/README/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">iOS中float四舍五入+末尾清零</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">iOS中copy与mutableCopy</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="nav-text">参考文档</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-text">目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81copy%E3%80%81mutableCopy"><span class="nav-text">一、copy、mutableCopy</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%B3%BB%E7%BB%9F%E7%9A%84%E9%9D%9E%E5%AE%B9%E5%99%A8%E7%B1%BB%E5%AF%B9%E8%B1%A1%EF%BC%9A%E8%BF%99%E9%87%8C%E6%8C%87%E7%9A%84%E6%98%AFNSString%E3%80%81NSNumber%E7%AD%89%E5%AF%B9%E8%B1%A1%E3%80%82"><span class="nav-text">二、系统的非容器类对象：这里指的是NSString、NSNumber等对象。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%B9%E5%99%A8%E7%B1%BB%E5%AF%B9%E8%B1%A1%EF%BC%9A%E6%8C%87NSArray%EF%BC%8CNSSet%EF%BC%8CNSDictionary%E7%AD%89%E3%80%82"><span class="nav-text">三、系统的容器类对象：指NSArray，NSSet，NSDictionary等。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%8F%A6%E4%B8%80%E4%B8%AA%E8%A7%92%E5%BA%A6%E6%9D%A5%E7%9C%8B"><span class="nav-text">四、另一个角度来看</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1%E3%80%81%E6%B5%85%E6%8B%B7%E8%B4%9D"><span class="nav-text">4.1、浅拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2%E3%80%81%E5%8D%95%E5%B1%82%E6%B7%B1copy"><span class="nav-text">4.2、单层深copy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3%E3%80%81%E5%8F%8C%E5%B1%82%E6%B7%B1%E6%8B%B7%E8%B4%9D"><span class="nav-text">4.3、双层深拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4%E3%80%81%E5%AE%8C%E5%85%A8%E6%B7%B1%E6%8B%B7%E8%B4%9D"><span class="nav-text">4.4、完全深拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%AF%B9%E8%B1%A1%E4%B9%8B%E9%97%B4%E7%9A%84%E6%B7%B1%E6%B5%85%E6%8B%B7%E8%B4%9D%E9%97%AE%E9%A2%98"><span class="nav-text">4.5、自定义类对象之间的深浅拷贝问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81-property%E4%B8%AD%E7%9A%84copy%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-text">五、@property中的copy关键字</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AD%E3%80%81copy%E5%92%8Cblock"><span class="nav-text">六、copy和block</span></a></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2024</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Lionsom</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        56 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.4</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/libs/anime.min.js"></script>
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+</body>
+</html>

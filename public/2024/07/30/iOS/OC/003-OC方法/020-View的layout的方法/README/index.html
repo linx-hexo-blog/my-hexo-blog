@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="LinXiang, iOS, Html, CSS, JS">
+    
+    <meta name="author" content="Lionsom">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://linxiang.netlify.app/2024/07/30/ios/oc/003-oc方法/020-view的layout的方法/readme/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="iOS 谈谈layoutSubviews何用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="View的layout的方法">
+<meta property="og:url" content="https://linxiang.netlify.app/2024/07/30/iOS/OC/003-OC%E6%96%B9%E6%B3%95/020-View%E7%9A%84layout%E7%9A%84%E6%96%B9%E6%B3%95/README/index.html">
+<meta property="og:site_name" content="LinXiang&#39;s Blog">
+<meta property="og:description" content="iOS 谈谈layoutSubviews何用">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-07-30T07:21:30.201Z">
+<meta property="article:modified_time" content="2024-08-06T08:41:33.804Z">
+<meta property="article:author" content="LinXiang">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="面试题">
+<meta property="article:tag" content="View">
+<meta property="article:tag" content="layout">
+<meta name="twitter:card" content="summary">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/myhead.jpg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/myhead.jpg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/myhead.jpg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            View的layout的方法 -
+        
+        爱飞翔
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+        <link href="" rel="stylesheet">
+    
+    
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"linxiang.netlify.app","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":true,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":false,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"《春江花月夜》","subtitle":{"text":["春江潮水连海平，海上明月共潮生。","滟滟随波千万里，何处春江无月明。","江流宛转绕芳甸，月照花林皆似霰。","空里流霜不觉飞，汀上白沙看不见。","江天一色无纤尘，皎皎空中孤月轮。","江畔何人初见月？江月何年初照人？","人生代代无穷已，江月年年望相似。","不知江月待何人，但见长江送流水。","白云一片去悠悠，青枫浦上不胜愁。","谁家今夜扁舟子？何处相思明月楼？","可怜楼上月裴回，应照离人妆镜台。","玉户帘中卷不去，捣衣砧上拂还来。","此时相望不相闻，愿逐月华流照君。","鸿雁长飞光不度，鱼龙潜跃水成文。","昨夜闲潭梦落花，可怜春半不还家。","江水流春去欲尽，江潭落月复西斜。","斜月沉沉藏海雾，碣石潇湘无限路。","不知乘月几人归，落月摇情满江树。"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":false},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/lionsom","instagram":null,"zhihu":null,"twitter":null,"email":"lionsom.linx@gmail.com"},"qrs":{"weixin":"/images/wechat-code.png"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.4","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","A":"/about/A","B":"/about/B","Friends":"/about/friends"}},"Links":{"icon":"fa-regular fa-link","submenus":{"Github":"https://github.com/lionsom"}}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2024/7/12 00:00:01"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                爱飞翔
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/about/A">
+                                                    A
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/about/B">
+                                                    B
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/about/friends">
+                                                    FRIENDS
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    LINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/lionsom">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about/A">A</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about/B">B</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about/friends">FRIENDS</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Links"
+                        >
+                            <span>
+                                LINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/lionsom">GITHUB</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">73</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">56</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">View的layout的方法</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/myhead.jpg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Lionsom</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-07-30 15:21:30</span>
+        <span class="mobile">2024-07-30 15:21:30</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-08-06 16:41:33</span>
+            <span class="mobile">2024-08-06 16:41:33</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/iOS/">iOS</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/View/">View</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/layout/">layout</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <p><a class="link"   target="_blank" rel="noopener" href="https://www.jianshu.com/p/2ef48c2f0c97" >iOS 谈谈layoutSubviews何用 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<span id="more"></span>
+
+<p>下面列出View的layout的方法:</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">layoutSubviews</span><br><span class="line">layoutIfNeeded</span><br><span class="line">setNeedsLayout</span><br><span class="line">setNeedsDisplay</span><br><span class="line">drawRect</span><br><span class="line">sizeThatFits</span><br><span class="line">sizeToFit</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="layoutSubviews"><a href="#layoutSubviews" class="headerlink" title="layoutSubviews"></a>layoutSubviews</h1><p><code>layoutSubviews</code> 是 <code>UIView</code> 的一个方法，用于在视图的子视图布局发生变化时进行重新布局。它的调用时机有以下几种情况：</p>
+<h3 id="1-初始布局"><a href="#1-初始布局" class="headerlink" title="1. 初始布局"></a>1. 初始布局</h3><p>当视图第一次显示时，系统会自动调用 <code>layoutSubviews</code> 方法以布局视图及其子视图。</p>
+<h3 id="2-布局发生变化"><a href="#2-布局发生变化" class="headerlink" title="2. 布局发生变化"></a>2. 布局发生变化</h3><p>当视图的 <code>frame</code> 或 <code>bounds</code> 改变时，系统会调用 <code>layoutSubviews</code> 方法。例如，通过设置视图的 <code>frame</code> 或 <code>bounds</code> 来改变视图的大小或位置时。</p>
+<h3 id="3-子视图添加或移除"><a href="#3-子视图添加或移除" class="headerlink" title="3. 子视图添加或移除"></a>3. 子视图添加或移除</h3><p>当向视图中添加或移除子视图时，<code>layoutSubviews</code> 会被调用。例如，使用 <code>addSubview:</code> 或 <code>removeFromSuperview</code> 方法时。</p>
+<h3 id="4-设置需要布局更新"><a href="#4-设置需要布局更新" class="headerlink" title="4. 设置需要布局更新"></a>4. 设置需要布局更新</h3><p>当调用 <code>setNeedsLayout</code> 方法时，系统会标记视图需要重新布局，并在下一个布局周期调用 <code>layoutSubviews</code> 方法。</p>
+<h3 id="5-设置需要显示更新"><a href="#5-设置需要显示更新" class="headerlink" title="5. 设置需要显示更新"></a>5. 设置需要显示更新</h3><p>当调用 <code>setNeedsDisplay</code> 方法时，系统也会调用 <code>layoutSubviews</code> 方法，因为需要重新绘制视图。</p>
+<h3 id="6-设备旋转"><a href="#6-设备旋转" class="headerlink" title="6. 设备旋转"></a>6. 设备旋转</h3><p>当设备旋转导致屏幕尺寸变化时，系统会调用 <code>layoutSubviews</code> 方法以适应新的屏幕尺寸。</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CustomView</span>: <span class="title class_ inherited__">UIView</span> &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">layoutSubviews</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>.layoutSubviews()</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 在此处调整子视图的布局</span></span><br><span class="line">        subview.frame <span class="operator">=</span> <span class="type">CGRect</span>(x: <span class="number">0</span>, y: <span class="number">0</span>, width: <span class="keyword">self</span>.bounds.width, height: <span class="number">50</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>在这个示例中，每当 <code>CustomView</code> 的 <code>frame</code> 或 <code>bounds</code> 发生变化时，系统会调用 <code>layoutSubviews</code> 方法，在该方法中可以调整 <code>subview</code> 的 <code>frame</code> 以适应新的尺寸。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><code>layoutSubviews</code> 方法在视图的布局或子视图的布局需要更新时被调用。理解它的调用时机有助于在自定义视图时正确处理布局更新。</p>
+<h1 id="layoutIfNeeded"><a href="#layoutIfNeeded" class="headerlink" title="layoutIfNeeded"></a>layoutIfNeeded</h1><p><code>layoutIfNeeded</code> 是 <code>UIView</code> 的一个方法，用于立即布局视图及其子视图。通常情况下，视图的布局会在下一个运行循环中异步执行，但是如果你希望立即执行布局而不等待下一个运行循环，可以调用 <code>layoutIfNeeded</code> 方法。</p>
+<h3 id="调用时机"><a href="#调用时机" class="headerlink" title="调用时机"></a>调用时机</h3><ol>
+<li><p><strong>手动布局更新</strong>：</p>
+<ul>
+<li>当你需要确保视图在某个时刻立即布局时，可以在需要的地方调用 <code>layoutIfNeeded</code> 方法。例如，在视图控制器的 <code>viewWillAppear</code> 或 <code>viewDidAppear</code> 方法中，有时需要确保视图已经正确布局后再执行某些操作。</li>
+</ul>
+</li>
+<li><p><strong>动画布局</strong>：</p>
+<ul>
+<li>在使用 <code>UIView</code> 的动画方法（如 <code>animate(withDuration:animations:)</code>）时，你可以在动画代码块中使用 <code>layoutIfNeeded</code> 方法来确保动画执行过程中视图的布局是最新的。这可以避免动画执行过程中布局更新导致的不良效果。</li>
+</ul>
+</li>
+<li><p><strong>获取布局后的尺寸</strong>：</p>
+<ul>
+<li>在某些情况下，你可能需要获取视图在特定时刻的布局后的尺寸或位置信息。在获取这些信息之前，可以调用 <code>layoutIfNeeded</code> 来确保已经进行了布局计算。</li>
+</ul>
+</li>
+</ol>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CustomView</span>: <span class="title class_ inherited__">UIView</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">animateAndLayout</span>() &#123;</span><br><span class="line">        <span class="type">UIView</span>.animate(withDuration: <span class="number">0.3</span>) &#123;</span><br><span class="line">            <span class="comment">// 在动画中更新约束或者属性</span></span><br><span class="line">            <span class="keyword">self</span>.layoutIfNeeded()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>在这个示例中，当 <code>animateAndLayout</code> 方法被调用时，通过 <code>UIView</code> 的动画方法来执行动画，同时在动画块中调用 <code>layoutIfNeeded</code> 方法，确保在动画执行期间视图的布局是最新的。</p>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p><code>layoutIfNeeded</code> 方法通常用于需要立即执行布局或确保在某些操作之前视图已经完成布局计算的情况下。它能够在需要时强制视图立即进行布局计算，并等待布局更新完成。</p>
+<h1 id="setNeedsLayout"><a href="#setNeedsLayout" class="headerlink" title="setNeedsLayout"></a>setNeedsLayout</h1><p><code>setNeedsLayout</code> 是 <code>UIView</code> 的一个方法，用于标记视图需要重新布局。在标记之后，系统会在下一个布局周期中异步调用 <code>layoutSubviews</code> 方法。这个方法不会立即触发布局更新，但会在下一次运行循环中进行布局。调用 <code>setNeedsLayout</code> 的场景主要包括以下几种：</p>
+<h3 id="调用时机-1"><a href="#调用时机-1" class="headerlink" title="调用时机"></a>调用时机</h3><ol>
+<li><p><strong>视图的属性发生变化</strong>：</p>
+<ul>
+<li>当视图的某些属性（如 <code>frame</code>、<code>bounds</code>、<code>center</code> 等）发生变化时，你需要更新其子视图的布局。例如，如果你手动改变了视图的 <code>frame</code>，可以调用 <code>setNeedsLayout</code> 来确保子视图布局在下一个布局周期内更新。</li>
+</ul>
+</li>
+<li><p><strong>视图的内容发生变化</strong>：</p>
+<ul>
+<li>如果视图的内容发生了变化，并且需要重新布局子视图。例如，视图中的文本、图像等内容变化后，需要调整子视图的位置或大小。</li>
+</ul>
+</li>
+<li><p><strong>响应外部事件</strong>：</p>
+<ul>
+<li>当响应外部事件（如用户交互、通知等）需要更新视图的布局时。例如，用户点击按钮后需要调整其他视图的位置或大小。</li>
+</ul>
+</li>
+<li><p><strong>约束变化</strong>：</p>
+<ul>
+<li>当使用 Auto Layout 并且视图的约束发生变化时，可以调用 <code>setNeedsLayout</code> 来触发重新布局。例如，你修改了视图的 NSLayoutConstraint 并希望立即生效。</li>
+</ul>
+</li>
+</ol>
+<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CustomView</span>: <span class="title class_ inherited__">UIView</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> someProperty: <span class="type">Int</span> <span class="operator">=</span> <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">didSet</span> &#123;</span><br><span class="line">            <span class="comment">// 当属性变化时，需要更新视图布局</span></span><br><span class="line">            setNeedsLayout()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">layoutSubviews</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>.layoutSubviews()</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 在此处调整子视图的布局</span></span><br><span class="line">        subview.frame <span class="operator">=</span> <span class="type">CGRect</span>(x: <span class="number">0</span>, y: <span class="number">0</span>, width: <span class="keyword">self</span>.bounds.width, height: <span class="number">50</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>在这个示例中，当 <code>someProperty</code> 发生变化时，会调用 <code>setNeedsLayout</code> 方法，标记视图需要重新布局。然后在下一个布局周期中，系统会调用 <code>layoutSubviews</code> 方法，在该方法中可以调整子视图的布局。</p>
+<h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h3><p><code>setNeedsLayout</code> 方法用于标记视图需要重新布局，在标记后，系统会在下一个布局周期内异步调用 <code>layoutSubviews</code> 方法。它通常用于响应视图属性、内容或外部事件的变化，以确保子视图的布局是最新的。通过调用 <code>setNeedsLayout</code>，可以延迟布局更新，从而优化性能和减少不必要的布局计算。</p>
+<p><strong>setNeedsLayout方法并不会立即刷新，立即刷新需要调用layoutIfNeeded方法！</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[self.view setNeedsLayout];</span><br><span class="line">[self.view layoutIfNeeded];</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h1 id="setNeedsDisplay"><a href="#setNeedsDisplay" class="headerlink" title="setNeedsDisplay"></a>setNeedsDisplay</h1><p><code>setNeedsDisplay</code> 是 <code>UIView</code> 的一个方法，用于标记视图需要重新绘制。调用 <code>setNeedsDisplay</code> 方法会使系统在下一个绘制周期中调用视图的 <code>draw(_:)</code> 方法。这通常用于视图内容发生变化，需要重新绘制的情况。以下是一些常见的调用场景：</p>
+<h3 id="调用时机-2"><a href="#调用时机-2" class="headerlink" title="调用时机"></a>调用时机</h3><ol>
+<li><p><strong>视图内容发生变化</strong>：</p>
+<ul>
+<li>当视图的内容需要更新时（例如文本、图像或颜色等变化），可以调用 <code>setNeedsDisplay</code> 来标记视图需要重新绘制。例如，你在自定义视图中绘制了一个图形，如果图形的数据发生了变化，需要调用 <code>setNeedsDisplay</code> 重新绘制。</li>
+</ul>
+</li>
+<li><p><strong>视图的属性发生变化</strong>：</p>
+<ul>
+<li>如果视图的某些属性（如背景色、透明度等）发生变化，且这些变化需要通过重新绘制才能反映出来。例如，你改变了视图的 <code>backgroundColor</code> 或 <code>alpha</code> 值，可以调用 <code>setNeedsDisplay</code> 重新绘制视图。</li>
+</ul>
+</li>
+<li><p><strong>响应外部事件</strong>：</p>
+<ul>
+<li>当响应外部事件（如用户交互、通知等）需要更新视图的内容时。例如，用户点击按钮后，需要更新视图中显示的内容。</li>
+</ul>
+</li>
+<li><p><strong>动画效果</strong>：</p>
+<ul>
+<li>在某些动画效果中，需要逐帧更新视图的内容。例如，你在一个自定义视图中实现动画，通过定时器或 CADisplayLink 调用 <code>setNeedsDisplay</code> 来逐帧重绘视图。</li>
+</ul>
+</li>
+</ol>
+<h3 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h3><div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CustomView</span>: <span class="title class_ inherited__">UIView</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> fillColor: <span class="type">UIColor</span> <span class="operator">=</span> .red &#123;</span><br><span class="line">        <span class="keyword">didSet</span> &#123;</span><br><span class="line">            <span class="comment">// 当填充颜色变化时，标记视图需要重新绘制</span></span><br><span class="line">            setNeedsDisplay()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">draw</span>(<span class="keyword">_</span> <span class="params">rect</span>: <span class="type">CGRect</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.draw(rect)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 在此处执行自定义绘制</span></span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> context <span class="operator">=</span> <span class="type">UIGraphicsGetCurrentContext</span>() <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">        </span><br><span class="line">        context.setFillColor(fillColor.cgColor)</span><br><span class="line">        context.fill(rect)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>在这个示例中，当 <code>fillColor</code> 属性变化时，会调用 <code>setNeedsDisplay</code> 方法，标记视图需要重新绘制。在下一个绘制周期中，系统会调用 <code>draw(_:)</code> 方法，在该方法中可以执行自定义绘制。</p>
+<h3 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h3><p><code>setNeedsDisplay</code> 方法用于标记视图需要重新绘制，在标记后，系统会在下一个绘制周期内调用 <code>draw(_:)</code> 方法。它通常用于视图内容或属性发生变化，需要通过重新绘制来反映这些变化的情况。通过调用 <code>setNeedsDisplay</code>，可以确保视图内容及时更新，保持与应用状态的一致性。</p>
+<h1 id="drawRect"><a href="#drawRect" class="headerlink" title="drawRect"></a>drawRect</h1><p>在iOS开发中，<code>drawRect:</code>方法是<code>UIView</code>类的一个实例方法，用于在自定义视图中绘制内容。<code>drawRect:</code>方法会在系统需要视图重绘时调用，比如视图首次显示或需要更新其内容时。以下是一些具体的场景：</p>
+<h3 id="何时调用drawRect"><a href="#何时调用drawRect" class="headerlink" title="何时调用drawRect:"></a>何时调用<code>drawRect:</code></h3><ol>
+<li><p><strong>视图首次显示</strong>：</p>
+<ul>
+<li>当视图首次显示在屏幕上时，系统会调用<code>drawRect:</code>方法来绘制视图的内容。</li>
+</ul>
+</li>
+<li><p><strong>视图内容需要更新</strong>：</p>
+<ul>
+<li>当视图的内容发生变化，需要重新绘制时，系统会调用<code>drawRect:</code>方法。例如，调用<code>setNeedsDisplay</code>或<code>setNeedsDisplayInRect:</code>方法会标记视图为需要重绘，系统会在下一个绘制周期中调用<code>drawRect:</code>方法。</li>
+</ul>
+</li>
+<li><p><strong>视图尺寸变化</strong>：</p>
+<ul>
+<li>当视图的尺寸发生变化时（例如，通过自动布局约束调整），系统可能会调用<code>drawRect:</code>方法以适应新的尺寸。</li>
+</ul>
+</li>
+</ol>
+<h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><p>以下是一个示例，演示如何在自定义视图中实现<code>drawRect:</code>方法：</p>
+<div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CustomView</span>: <span class="title class_ inherited__">UIView</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化方法</span></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">init</span>(<span class="params">frame</span>: <span class="type">CGRect</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(frame: frame)</span><br><span class="line">        setup()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">required</span> <span class="keyword">init?</span>(<span class="params">coder</span>: <span class="type">NSCoder</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(coder: coder)</span><br><span class="line">        setup()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置初始配置</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">func</span> <span class="title function_">setup</span>() &#123;</span><br><span class="line">        <span class="comment">// 可以在这里进行一些初始配置</span></span><br><span class="line">        backgroundColor <span class="operator">=</span> .white</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 绘制内容</span></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">draw</span>(<span class="keyword">_</span> <span class="params">rect</span>: <span class="type">CGRect</span>) &#123;</span><br><span class="line">        <span class="comment">// 获取绘图上下文</span></span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> context <span class="operator">=</span> <span class="type">UIGraphicsGetCurrentContext</span>() <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 设置绘图属性</span></span><br><span class="line">        context.setLineWidth(<span class="number">2.0</span>)</span><br><span class="line">        context.setStrokeColor(<span class="type">UIColor</span>.red.cgColor)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 绘制矩形</span></span><br><span class="line">        <span class="keyword">let</span> rectangle <span class="operator">=</span> <span class="type">CGRect</span>(x: <span class="number">10</span>, y: <span class="number">10</span>, width: <span class="number">100</span>, height: <span class="number">100</span>)</span><br><span class="line">        context.addRect(rectangle)</span><br><span class="line">        context.strokePath()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="触发drawRect"><a href="#触发drawRect" class="headerlink" title="触发drawRect:"></a>触发<code>drawRect:</code></h3><p>你可以通过以下方式触发视图的重绘，进而调用<code>drawRect:</code>方法：</p>
+<ol>
+<li><p>**手动调用<code>setNeedsDisplay</code>**：</p>
+<ul>
+<li>标记整个视图为需要重绘。</li>
+</ul>
+ <div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">customView.setNeedsDisplay()</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>**手动调用<code>setNeedsDisplayInRect:</code>**：</p>
+<ul>
+<li>标记视图的特定区域为需要重绘。</li>
+</ul>
+ <div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">customView.setNeedsDisplay(in: <span class="type">CGRect</span>(x: <span class="number">10</span>, y: <span class="number">10</span>, width: <span class="number">50</span>, height: <span class="number">50</span>))</span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li><code>drawRect:</code>方法只应在视图内容需要更新时调用，避免不必要的性能开销。</li>
+<li>不要直接调用<code>drawRect:</code>方法。相反，使用<code>setNeedsDisplay</code>或<code>setNeedsDisplayInRect:</code>来触发重绘。</li>
+<li>在<code>drawRect:</code>方法中进行绘制操作时，应避免执行耗时任务，以保持界面流畅。</li>
+<li>如果你的视图不需要自定义绘制，避免重写<code>drawRect:</code>方法，因为它会禁用视图的离屏渲染优化。</li>
+</ul>
+<h3 id="总结-4"><a href="#总结-4" class="headerlink" title="总结"></a>总结</h3><p><code>drawRect:</code>方法是用于在自定义视图中绘制内容的关键方法。它会在视图首次显示、内容需要更新或尺寸变化时由系统调用。通过合理使用<code>setNeedsDisplay</code>和<code>setNeedsDisplayInRect:</code>方法，你可以控制视图的重绘行为，确保应用界面的高效和流畅。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> View的layout的方法</li>
+        <li><strong>Author:</strong> Lionsom</li>
+        <li><strong>Created at
+                :</strong> 2024-07-30 15:21:30</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-08-06 16:41:33
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://linxiang.netlify.app/2024/07/30/iOS/OC/003-OC方法/020-View的layout的方法/README/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/iOS/">#iOS</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">#面试题</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/View/">#View</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/layout/">#layout</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2024/07/30/iOS/OC/003-OC%E6%96%B9%E6%B3%95/019-%E5%AE%9A%E6%97%B6%E5%99%A8/%E5%AE%9A%E6%97%B6%E5%99%A8%E5%BE%AA%E7%8E%AF%E5%BC%95%E7%94%A8/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">iOS定时器循环引用问题</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2024/07/30/iOS/OC/003-OC%E6%96%B9%E6%B3%95/019-%E5%AE%9A%E6%97%B6%E5%99%A8/README/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">iOS定时器</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">View的layout的方法</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#layoutSubviews"><span class="nav-text">layoutSubviews</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%88%9D%E5%A7%8B%E5%B8%83%E5%B1%80"><span class="nav-text">1. 初始布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%B8%83%E5%B1%80%E5%8F%91%E7%94%9F%E5%8F%98%E5%8C%96"><span class="nav-text">2. 布局发生变化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%AD%90%E8%A7%86%E5%9B%BE%E6%B7%BB%E5%8A%A0%E6%88%96%E7%A7%BB%E9%99%A4"><span class="nav-text">3. 子视图添加或移除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E8%AE%BE%E7%BD%AE%E9%9C%80%E8%A6%81%E5%B8%83%E5%B1%80%E6%9B%B4%E6%96%B0"><span class="nav-text">4. 设置需要布局更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E8%AE%BE%E7%BD%AE%E9%9C%80%E8%A6%81%E6%98%BE%E7%A4%BA%E6%9B%B4%E6%96%B0"><span class="nav-text">5. 设置需要显示更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E8%AE%BE%E5%A4%87%E6%97%8B%E8%BD%AC"><span class="nav-text">6. 设备旋转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-text">例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#layoutIfNeeded"><span class="nav-text">layoutIfNeeded</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E6%97%B6%E6%9C%BA"><span class="nav-text">调用时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-1"><span class="nav-text">总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#setNeedsLayout"><span class="nav-text">setNeedsLayout</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E6%97%B6%E6%9C%BA-1"><span class="nav-text">调用时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-1"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-2"><span class="nav-text">总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#setNeedsDisplay"><span class="nav-text">setNeedsDisplay</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E6%97%B6%E6%9C%BA-2"><span class="nav-text">调用时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-2"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-3"><span class="nav-text">总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#drawRect"><span class="nav-text">drawRect</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E6%97%B6%E8%B0%83%E7%94%A8drawRect"><span class="nav-text">何时调用drawRect:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-text">示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A6%E5%8F%91drawRect"><span class="nav-text">触发drawRect:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-4"><span class="nav-text">总结</span></a></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2024</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Lionsom</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        56 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.4</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/libs/anime.min.js"></script>
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+</body>
+</html>
